@@ -5,7 +5,6 @@ const hashPassword = (password) => {
 }
 
 const checkPassword = (password, hashedPassword) => {
-    console.log('HELO');
     return bcrypt.compareSync(password, hashedPassword);
 }
 
