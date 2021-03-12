@@ -1,4 +1,4 @@
-const { Task } = require('../models');
+const { Task, User } = require('../models');
 
 class TaskController {
     static addTask (req, res, next) {
@@ -20,9 +20,30 @@ class TaskController {
     }
 
     static fetchTasks (req, res, next) {
-        Task.findAll()
+        Task.findAll({
+            include: User
+        })
         .then(data => {
-            res.status(200).json(data);
+            console.log(data);
+            let newData = [];
+
+            data.forEach(user => {
+                newData.push({
+                    id: user.id,
+                    title: user.title,
+                    description: user.description,
+                    category: user.category,
+                    priority: user.priority,
+                    UserId: user.UserId,
+                    User: {
+                        id: user.User.id,
+                        full_name: user.User.full_name,
+                        email: user.User.email
+                    }
+                })
+            });
+
+            res.status(200).json(newData);
         })
         .catch(err => {
             next(err);

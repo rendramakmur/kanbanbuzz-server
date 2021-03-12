@@ -337,9 +337,12 @@
         "description": "<tasks description>",
         "category": "<tasks category>",
         "priority": "<tasks priority>",
-        "UserId": "<tasks UserId>",
-        "createdAt": "2021-03-20T16:08:30.149Z",
-        "updatedAt": "2021-03-20T16:08:30.149Z"
+        "UserId": "<tasks UserId>"
+        "User": {
+            "id": <user id>,
+            "full_name": <user full_name>,
+            "email": <user email>
+        }
       },
       {
         "id": 2,
@@ -347,9 +350,12 @@
         "description": "<tasks description>",
         "category": "<tasks category>",
         "priority": "<tasks priority>",
-        "UserId": "<tasks UserId>",
-        "createdAt": "2021-03-20T16:08:30.149Z",
-        "updatedAt": "2021-03-20T16:08:30.149Z"
+        "UserId": "<tasks UserId>"
+        "User": {
+            "id": <user id>,
+            "full_name": <user full_name>,
+            "email": <user email>
+        }
       },
       ...
     ]
