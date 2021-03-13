@@ -1,6 +1,7 @@
 const { signToken } = require('../helpers/jwt');
 const { checkPassword } = require('../helpers/passwordHelper');
 const { User } = require('../models');
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
     static login (req, res, next) {
@@ -57,7 +58,41 @@ class UserController {
     }
 
     static googleLogin (req, res, next) {
-        
+        const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+        async function verify() {
+            const ticket = await client.verifyIdToken({
+                idToken: req.body.google_token,
+                audience: process.env.GOOGLE_CLIENT_ID
+            })
+
+            const googleUserPayload = ticket.getPayload();
+            
+            User.findOrCreate({
+                where: {
+                    email: googleUserPayload.email
+                },
+                defaults: {
+                    full_name: googleUserPayload.name,
+                    email: googleUserPayload.email,
+                    password: new Date().toLocaleString('se-SV', {dateStyle: 'short'})
+                }
+            })
+            .then(data => {
+                let access_token = signToken(data[0].id, data[0].full_name, data[0].email)
+                console.log(access_token);
+                res.status(200).json({
+                    access_token,
+                    name: data[0].full_name,
+                    email: data[0].email
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                next(err);
+            })
+        }
+
+        verify().catch(console.error)
     }
 }
 

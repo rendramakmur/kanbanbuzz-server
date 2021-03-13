@@ -24,7 +24,6 @@ class TaskController {
             include: User
         })
         .then(data => {
-            console.log(data);
             let newData = [];
 
             data.forEach(user => {
