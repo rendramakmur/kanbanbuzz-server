@@ -1,2 +1,5 @@
-# kanban-server
-API untuk managing task, yang akan di hit oleh kanban client
+# kanbanbuzz-server
+
+**Server**: CRUD - REST API, Express.js, Node.js, Sequelize, PostgreSQL
+<br>
+Deployed on Heroku https://kanbanbuzz.herokuapp.com/
